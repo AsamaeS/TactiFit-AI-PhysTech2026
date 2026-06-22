@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TactiFit AI Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">PhysTech 2026</p>
+        <h1>TactiFit AI</h1>
+      </div>
+      <div class="match">
+        <label for="minute">Match minute</label>
+        <input id="minute" type="range" min="1" max="120" value="78">
+        <strong id="minuteValue">78'</strong>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="pitch-panel" aria-label="Live pitch">
+        <div class="pitch" id="pitch"></div>
+      </section>
+
+      <aside class="side-panel">
+        <section class="metric-row">
+          <div>
+            <span>Team energy</span>
+            <strong id="teamEnergy">--%</strong>
+          </div>
+          <div>
+            <span>Weather</span>
+            <strong>28 C / 65%</strong>
+          </div>
+        </section>
+
+        <section>
+          <h2>Coach Alerts</h2>
+          <div id="alerts"></div>
+        </section>
+
+        <section>
+          <h2>Player Detail</h2>
+          <div id="detail" class="detail"></div>
+        </section>
+      </aside>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
+

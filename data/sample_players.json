@@ -1,0 +1,58 @@
+[
+  {
+    "player_id": "P1",
+    "name": "Goalkeeper",
+    "position": "GK"
+  },
+  {
+    "player_id": "P2",
+    "name": "Right Back",
+    "position": "DF"
+  },
+  {
+    "player_id": "P3",
+    "name": "Centre Back",
+    "position": "DF"
+  },
+  {
+    "player_id": "P4",
+    "name": "Centre Back",
+    "position": "DF"
+  },
+  {
+    "player_id": "P5",
+    "name": "Left Back",
+    "position": "DF"
+  },
+  {
+    "player_id": "P6",
+    "name": "Defensive Midfielder",
+    "position": "MF"
+  },
+  {
+    "player_id": "P7",
+    "name": "Winger",
+    "position": "FW"
+  },
+  {
+    "player_id": "P8",
+    "name": "Central Midfielder",
+    "position": "MF"
+  },
+  {
+    "player_id": "P9",
+    "name": "Striker",
+    "position": "FW"
+  },
+  {
+    "player_id": "P10",
+    "name": "Attacking Midfielder",
+    "position": "MF"
+  },
+  {
+    "player_id": "P11",
+    "name": "Winger",
+    "position": "FW"
+  }
+]
+
