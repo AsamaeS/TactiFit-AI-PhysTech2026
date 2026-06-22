@@ -1,30 +1,28 @@
 import unittest
 
 try:
-    from fastapi.testclient import TestClient
-    from backend.tactifit.api import app
+    from backend.tactifit import api
 except ModuleNotFoundError:  # pragma: no cover - depends on optional local install
-    TestClient = None
-    app = None
+    api = None
 
 
-@unittest.skipIf(TestClient is None, "FastAPI is not installed")
+@unittest.skipIf(api is None, "FastAPI is not installed")
 class ApiTest(unittest.TestCase):
     def test_root_lists_available_routes(self):
-        client = TestClient(app)
+        response = api.root()
 
-        response = client.get("/")
-
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()["docs"], "/docs")
+        self.assertEqual(response["app"], "/app")
+        self.assertEqual(response["docs"], "/docs")
 
     def test_health(self):
-        client = TestClient(app)
+        response = api.health()
 
-        response = client.get("/health")
+        self.assertEqual(response["status"], "ok")
 
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()["status"], "ok")
+    def test_coach_app_points_to_frontend_file(self):
+        response = api.coach_app()
+
+        self.assertTrue(str(response.path).endswith("frontend\\index.html") or str(response.path).endswith("frontend/index.html"))
 
 
 if __name__ == "__main__":

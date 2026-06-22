@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from .model import predict_fatigue
@@ -11,6 +13,10 @@ from .schemas import PlayerSample
 from .sensor_simulator import simulate_player_sample
 
 app = FastAPI(title="TactiFit AI API", version="0.1.0")
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+FRONTEND_DIR = PROJECT_ROOT / "frontend"
+
+app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
 
 
 class PlayerSampleIn(BaseModel):
@@ -36,10 +42,26 @@ class PlayerSampleIn(BaseModel):
 def root() -> dict:
     return {
         "message": "Welcome to TactiFit AI API",
+        "app": "/app",
         "docs": "/docs",
         "health": "/health",
         "dashboard": "/dashboard",
     }
+
+
+@app.get("/app", response_class=FileResponse)
+def coach_app() -> FileResponse:
+    return FileResponse(FRONTEND_DIR / "index.html")
+
+
+@app.get("/style.css", response_class=FileResponse)
+def frontend_styles() -> FileResponse:
+    return FileResponse(FRONTEND_DIR / "style.css", media_type="text/css")
+
+
+@app.get("/app.js", response_class=FileResponse)
+def frontend_script() -> FileResponse:
+    return FileResponse(FRONTEND_DIR / "app.js", media_type="text/javascript")
 
 
 @app.get("/health")
@@ -69,5 +91,5 @@ def dashboard(match_minute: int = 78) -> dict:
 
 @app.get("/demo-players")
 def demo_players() -> dict:
-    path = Path(__file__).resolve().parents[2] / "data" / "sample_players.json"
+    path = PROJECT_ROOT / "data" / "sample_players.json"
     return {"players": json.loads(path.read_text(encoding="utf-8"))}

@@ -3,47 +3,110 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TactiFit AI Dashboard</title>
+    <title>TactiFit AI - Smart Substitution</title>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <header class="topbar">
-      <div>
-        <p class="eyebrow">PhysTech 2026</p>
-        <h1>TactiFit AI</h1>
+      <div class="brand">
+        <span class="brand-mark">TF</span>
+        <div>
+          <p class="eyebrow">PhysTech 2026</p>
+          <h1>TactiFit AI</h1>
+        </div>
       </div>
-      <div class="match">
-        <label for="minute">Match minute</label>
-        <input id="minute" type="range" min="1" max="120" value="78">
-        <strong id="minuteValue">78'</strong>
+
+      <div class="match-control">
+        <div>
+          <span class="label">Match clock</span>
+          <strong id="minuteValue">78'</strong>
+        </div>
+        <input id="minute" type="range" min="1" max="120" value="78" aria-label="Match minute">
+      </div>
+
+      <div class="status-strip" aria-label="Match context">
+        <div><span>Temp</span><strong>28 C</strong></div>
+        <div><span>Humidity</span><strong>65%</strong></div>
+        <div><span>AQI</span><strong>90</strong></div>
       </div>
     </header>
 
-    <main class="layout">
+    <main class="dashboard">
+      <section class="command-panel" aria-label="Substitution recommendation">
+        <div class="decision">
+          <span class="label">Highest priority</span>
+          <h2 id="priorityTitle">Calculating...</h2>
+          <p id="priorityCopy"></p>
+        </div>
+        <div class="decision-meter">
+          <svg viewBox="0 0 120 120" role="img" aria-label="Fatigue risk meter">
+            <circle class="meter-bg" cx="60" cy="60" r="50"></circle>
+            <circle class="meter-fill" id="riskArc" cx="60" cy="60" r="50"></circle>
+          </svg>
+          <strong id="riskScore">--%</strong>
+          <span>risk</span>
+        </div>
+        <div class="next-action">
+          <span class="label">Recommended swap</span>
+          <strong id="swapText">--</strong>
+        </div>
+      </section>
+
       <section class="pitch-panel" aria-label="Live pitch">
+        <div class="section-heading">
+          <div>
+            <span class="label">Live XI</span>
+            <h2>Fatigue Map</h2>
+          </div>
+          <div class="legend">
+            <span><i class="fresh"></i> Fresh</span>
+            <span><i class="moderate"></i> Watch</span>
+            <span><i class="fatigued"></i> Tired</span>
+            <span><i class="critical"></i> Critical</span>
+          </div>
+        </div>
         <div class="pitch" id="pitch"></div>
       </section>
 
-      <aside class="side-panel">
-        <section class="metric-row">
+      <aside class="analysis-panel">
+        <section class="metric-grid">
           <div>
-            <span>Team energy</span>
+            <span class="label">Team energy</span>
             <strong id="teamEnergy">--%</strong>
           </div>
           <div>
-            <span>Weather</span>
-            <strong>28 C / 65%</strong>
+            <span class="label">Players at risk</span>
+            <strong id="riskCount">--</strong>
+          </div>
+          <div>
+            <span class="label">Avg HR</span>
+            <strong id="avgHr">-- bpm</strong>
+          </div>
+          <div>
+            <span class="label">Sprint load</span>
+            <strong id="sprintLoad">--</strong>
           </div>
         </section>
 
         <section>
-          <h2>Coach Alerts</h2>
-          <div id="alerts"></div>
+          <div class="section-heading compact">
+            <h2>Coach Alerts</h2>
+          </div>
+          <div id="alerts" class="stack"></div>
         </section>
 
         <section>
-          <h2>Player Detail</h2>
+          <div class="section-heading compact">
+            <h2>Selected Player</h2>
+          </div>
           <div id="detail" class="detail"></div>
+        </section>
+
+        <section>
+          <div class="section-heading compact">
+            <h2>Bench Options</h2>
+          </div>
+          <div id="bench" class="bench-list"></div>
         </section>
       </aside>
     </main>
@@ -51,4 +114,3 @@
     <script src="app.js"></script>
   </body>
 </html>
-
