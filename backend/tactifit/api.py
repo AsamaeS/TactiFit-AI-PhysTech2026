@@ -32,6 +32,16 @@ class PlayerSampleIn(BaseModel):
     aqi: float
 
 
+@app.get("/")
+def root() -> dict:
+    return {
+        "message": "Welcome to TactiFit AI API",
+        "docs": "/docs",
+        "health": "/health",
+        "dashboard": "/dashboard",
+    }
+
+
 @app.get("/health")
 def health() -> dict:
     return {"status": "ok", "service": "tactifit-ai"}
@@ -61,4 +71,3 @@ def dashboard(match_minute: int = 78) -> dict:
 def demo_players() -> dict:
     path = Path(__file__).resolve().parents[2] / "data" / "sample_players.json"
     return {"players": json.loads(path.read_text(encoding="utf-8"))}
-
